@@ -18,7 +18,7 @@ function poolUsersRequest(token, params) {
 
 	let query = { filter: {}, page: {} };
 	if(params.hasOwnProperty('poolYear')) {
-		query.filter.pool_year = params.poolYear;
+		query.filter.pool_year = params.poolYear.toString();
 	}
 	if(params.hasOwnProperty('poolMonth')) {
 		query.filter.pool_month = params.poolMonth;

@@ -22,8 +22,8 @@ function getCampusIdByName(campusName) {
 	return -1;
 }
 
-function sleep(milliseconds) {
-	return new Promise(resolve => setTimeout(resolve, milliseconds));
+function sleep(milliseconds, valueToPass) {
+	return new Promise(resolve => setTimeout(resolve(valueToPass), milliseconds));
 }
 
 module.exports.writeFilePromise = writeFilePromise;

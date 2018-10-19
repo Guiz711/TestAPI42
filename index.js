@@ -3,7 +3,6 @@ const Utils = require('./src/utils.js');
 const API42 = require('./src/apiRequests.js');
 const Credentials = require('./resources/credentials.json');
 const fs = require('fs');
-// const Save = require('./save.json');
 
 let Auth42 = new ClientOAuth({
 	clientId: Credentials.Id,
@@ -16,7 +15,7 @@ let Auth42 = new ClientOAuth({
 Auth42.credentials.getToken()
 	.then(token => {
 		return getAllPoolUsers(token, {
-			poolYear: 2018,
+			poolYear: '2018',
 			poolMonth: 'august',
 			campus: 'Paris',
 			pageSize: 100});
@@ -39,7 +38,7 @@ function _getAllPoolUsers(token, params, currentPage) {
 		API42.poolUsersRequest(token, params)
 			.then(res => {
 				if (res.status == 429) {
-					reject("Rate Limit Exceeded");
+					reject({error: "Rate Limit Exceeded", result: res});
 				} else if (res.status == 200) {
 					//maybe here too?
 					let dir = `${params.poolYear}_${params.poolMonth}`;
@@ -51,29 +50,31 @@ function _getAllPoolUsers(token, params, currentPage) {
 					//
 
 					//need factorisation in new function
+					console.log(`${currentPage} ${res.headers['x-secondly-ratelimit-remaining']}`);
 					if (res.headers['x-hourly-ratelimit-remaining'] == 0) {
 						reject("Hourly Rate Limit Exceeded");
 					} else if (res.headers['x-secondly-ratelimit-remaining'] == 0) {
-						return Utils.sleep(1000);
+						console.log('waiting...')
+						return Utils.sleep(1500, res);
 					} else {
-						return;
+						return res;
 					}
 					//
 				} else {
 					reject(`API response error: ${res.body}`);
 				}
 			})
-			.then(() => {
+			.then(res => {
 				//maybe here too?
 				if (currentPage === undefined) {
-					currentPage = res.headers['x-total'] / res.headers['x-per-page'];
+					currentPage = Math.ceil(res.headers['x-total'] / res.headers['x-per-page']);
 					if (currentPage > 1) {
-						resolve(getAllPoolUser(token, params, currentPage));
+						resolve(_getAllPoolUsers(token, params, currentPage));
 					} else {
 						resolve(true);
 					}
 				} else if (currentPage > 1) {
-					resolve(getAllPoolUser(token, params, --currentPage));
+					resolve(_getAllPoolUsers(token, params, --currentPage));
 				} else {
 					resolve(true);
 				}
