@@ -1,0 +1,116 @@
+[
+	{
+		"id": 20,
+		"created_at": "2018-09-08T18:34:56.909Z",
+		"name": "Boost",
+		"slug": "boost"
+	},
+	{
+		"id": 19,
+		"created_at": "2018-03-27T22:33:03.213Z",
+		"name": "Atlantis",
+		"slug": "atlantis"
+	},
+	{
+		"id": 18,
+		"created_at": "2017-12-15T22:31:21.361Z",
+		"name": "Starfleet",
+		"slug": "starfleet"
+	},
+	{
+		"id": 17,
+		"created_at": "2017-08-28T23:27:49.646Z",
+		"name": "H2S",
+		"slug": "h2s"
+	},
+	{
+		"id": 16,
+		"created_at": "2017-06-06T21:13:39.178Z",
+		"name": "X-Mansion-Namido",
+		"slug": "x-mansion-namido"
+	},
+	{
+		"id": 15,
+		"created_at": "2017-05-29T22:01:22.923Z",
+		"name": "X-Mansion",
+		"slug": "x-mansion"
+	},
+	{
+		"id": 14,
+		"created_at": "2017-05-15T09:53:41.742Z",
+		"name": "Technical Interview",
+		"slug": "technical-interview"
+	},
+	{
+		"id": 13,
+		"created_at": "2017-02-01T14:25:42.300Z",
+		"name": "42 Labs",
+		"slug": "42-labs"
+	},
+	{
+		"id": 12,
+		"created_at": "2016-08-23T14:37:59.752Z",
+		"name": "Créa",
+		"slug": "crea"
+	},
+	{
+		"id": 11,
+		"created_at": "2015-12-08T11:59:17.803Z",
+		"name": "BootCamp",
+		"slug": "bootcamp"
+	},
+	{
+		"id": 10,
+		"created_at": "2015-11-12T16:35:19.549Z",
+		"name": "Formation Pole Emploi",
+		"slug": "formation-pole-emploi"
+	},
+	{
+		"id": 9,
+		"created_at": "2015-11-04T10:58:13.979Z",
+		"name": "Discovery",
+		"slug": "discovery"
+	},
+	{
+		"id": 8,
+		"created_at": "2015-09-22T11:35:20.216Z",
+		"name": "WeThinkCode_",
+		"slug": "wethinkcode_"
+	},
+	{
+		"id": 7,
+		"created_at": "2015-09-21T12:40:13.452Z",
+		"name": "Piscine C à distance",
+		"slug": "piscine-c-a-distance"
+	},
+	{
+		"id": 6,
+		"created_at": "2015-09-21T12:36:09.128Z",
+		"name": "Piscine C décloisonnée",
+		"slug": "piscine-c-decloisonnee"
+	},
+	{
+		"id": 5,
+		"created_at": "2015-09-20T13:27:03.918Z",
+		"name": "42partnerships",
+		"slug": "42partnerships"
+	},
+	{
+		"id": 4,
+		"created_at": "2015-05-01T17:46:08.433Z",
+		"name": "Piscine C",
+		"slug": "piscine-c"
+	},
+	{
+		"id": 3,
+		"created_at": "2015-04-20T07:39:49.050Z",
+		"name": "Discovery Piscine",
+		"slug": "discovery-piscine"
+	},
+	{
+		"id": 1,
+		"created_at": "2014-11-02T16:43:38.480Z",
+		"name": "42",
+		"slug": "42"
+	}
+]
