@@ -23,7 +23,11 @@ function getCampusIdByName(campusName) {
 }
 
 function sleep(milliseconds, valueToPass) {
-	return new Promise(resolve => setTimeout(resolve(valueToPass), milliseconds));
+	return new Promise(resolve => {
+		setTimeout(valueToPass => {
+			resolve(valueToPass);
+		}, milliseconds, valueToPass);
+	});
 }
 
 module.exports.writeFilePromise = writeFilePromise;

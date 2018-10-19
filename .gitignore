@@ -1,4 +1,8 @@
 # Logs
+*/.DS_Store
+resources/credentials.json
+results/*
+!results/.gitkeep
 logs
 *.log
 npm-debug.log*
