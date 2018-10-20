@@ -1,7 +1,8 @@
 const Utils = require('./utils.js');
 const Popsicle = require('popsicle');
-const ClientOAuth = require('client-oauth2');
+// const ClientOAuth = require('client-oauth2');
 const fs = require('fs');
+const ProgressBar = require('cli-progress');
 
 
 /*
@@ -51,7 +52,8 @@ function getUserRequest(token, userId) {
 */
 
 function getAllPoolUsers(token, params) {
-	return _getAllPoolUsers(token, params);
+	const bar = new ProgressBar.Bar();
+	return _getAllPoolUsers(token, bar, params)
 }
 
 function _createPoolResultFile(data, year, month, pageNumber) {
@@ -67,29 +69,32 @@ function _rateLimitHandling(res) {
 	if (res.headers['x-hourly-ratelimit-remaining'] == 0) {
 		throw("Hourly Rate Limit Exceeded");
 	} else if (res.headers['x-secondly-ratelimit-remaining'] == 0) {
-		console.log('waiting...')
 		return Utils.sleep(1000, res);
 	} else {
 		return res;
 	}
 }
 
-function _requestLoopHandling(res, token, params, currentPage) {
+function _poolUsersRequestLoopHandling(res, token, bar, params, currentPage) {
 	if (currentPage === undefined) {
 		currentPage = Math.ceil(res.headers['x-total'] / res.headers['x-per-page']);
 		if (currentPage > 1) {
-			return(_getAllPoolUsers(token, params, currentPage));
+			bar.start(currentPage, 1);
+			return(_getAllPoolUsers(token, bar, params, currentPage));
 		} else {
-			return true ;
+			bar.stop()
+			return true;
 		}
 	} else if (currentPage > 1) {
-		return(_getAllPoolUsers(token, params, --currentPage));
+		bar.increment()
+		return(_getAllPoolUsers(token, bar, params, --currentPage));
 	} else {
+		bar.stop();
 		return true;
 	}
 }
 
-function _getAllPoolUsers(token, params, currentPage) {
+function _getAllPoolUsers(token, bar, params, currentPage) {
 	if(currentPage !== undefined)
 		params.pageNumber = currentPage;
 	else
@@ -116,9 +121,64 @@ function _getAllPoolUsers(token, params, currentPage) {
 				}
 			})
 			.then(res => {
-				//maybe here too?
-				resolve(_requestLoopHandling(res, token, params, currentPage))
-				//
+				resolve(_poolUsersRequestLoopHandling(res, token, bar, params, currentPage));
+			})
+			.catch(err => reject(err))
+	})
+}
+
+function getAllUsers(token, filePath) {
+	const bar = new ProgressBar.Bar();
+	Utils.getStudentsIdFromFile(filePath)
+		.then(idList => {
+			bar.start(idList.length, 0);
+			return _getAllUsers(token, idList, 0, [], bar);
+		})
+		.then(resBuffer => {
+			bar.stop();
+			filePath = filePath.replace(/\.[^/.]+$/, "") + '_profiles.json';
+			Utils.writeFilePromise(filePath, JSON.stringify(resBuffer))
+				.catch(err => {
+					console.error(err);
+				})
+		})
+		.catch(err => {
+			throw err;
+		});
+}
+
+function _usersRequestLoopHandling(token, idList, listPos, resBuffer, bar) {
+	listPos++;
+	if (listPos <  idList.length) {
+		return(_getAllUsers(token, idList, listPos, resBuffer, bar));
+	} else {
+		return resBuffer;
+	}
+}
+
+function _getAllUsers(token, idList, listPos, resBuffer, bar) {
+	return new Promise((resolve, reject) => {
+		getUserRequest(token, idList[listPos])
+			.then(res => {
+				if (res.status == 429) {
+					reject({error: "Rate Limit Exceeded", result: res});
+				} else if (res.status == 200) {
+					resBuffer.push(JSON.parse(res.body));
+					// _updateProfileDataBuffer(res.body, resBuffer);
+	
+					try {
+						return _rateLimitHandling(res);
+					}
+					catch(err) {
+						reject(err);
+					}
+				} else {
+					reject(`API response error: ${res.body}`);
+				}
+			})
+			.then(res => {
+				bar.increment();
+				resolve(_usersRequestLoopHandling(token, idList, listPos, resBuffer, bar));
 			})
 			.catch(err => reject(err))
 	})
@@ -126,3 +186,4 @@ function _getAllPoolUsers(token, params, currentPage) {
 
 module.exports.poolUsersRequest = poolUsersRequest;
 module.exports.getAllPoolUsers = getAllPoolUsers;
+module.exports.getAllUsers = getAllUsers;

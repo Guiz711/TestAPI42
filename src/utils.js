@@ -30,6 +30,28 @@ function sleep(milliseconds, valueToPass) {
 	});
 }
 
+function getStudentsIdFromFile(filePath) {
+	return new Promise((resolve, reject) => {
+		fs.readFile(filePath, (err, data) => {
+			if (err)
+				reject(err);
+
+			try {
+				let parsedData = JSON.parse(data);
+				let idList = [];
+				for (let i = 0; i < parsedData.length; ++i) {
+					idList.push(parsedData[i].id);
+				}
+				resolve(idList);
+			}
+			catch(err) {
+				reject(err);
+			}
+		})
+	})
+}
+
 module.exports.writeFilePromise = writeFilePromise;
 module.exports.getCampusIdByName = getCampusIdByName;
+module.exports.getStudentsIdFromFile = getStudentsIdFromFile;
 module.exports.sleep = sleep;

@@ -15,9 +15,10 @@ Auth42.credentials.getToken()
 	.then(token => {
 		return API42.getAllPoolUsers(token, {
 			poolYear: '2018',
-			poolMonth: 'august',
+			poolMonth: 'july',
 			campus: 'Paris',
 			pageSize: 100});
+		// return API42.getAllUsers(token, './results/2018_july_pool/users_1.json');
 	})
 	.catch(err => {
 		console.error(err);

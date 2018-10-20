@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/Guiz711/TestAPI42#readme",
   "dependencies": {
+    "cli-progress": "^2.1.0",
     "client-oauth2": "^4.2.1",
     "fs": "0.0.1-security",
-    "popsicle": "^10.0.1",
+    "popsicle": "^10.0.1"
   }
 }
