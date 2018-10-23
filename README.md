@@ -5,8 +5,6 @@ It allows you to retrieve the public profiles of the user who attemted a specifi
 
 ## Getting Started
 
-Once you've 
-
 ### Prerequisites
 
 - node
