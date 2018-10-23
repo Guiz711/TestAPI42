@@ -22,8 +22,8 @@ npm install
 
 ```
 {
-	"Id" : "myId",
-	"Secret" : "mySecret"
+    "Id" : "myId",
+    "Secret" : "mySecret"
 }
 ```
 
@@ -36,6 +36,8 @@ npm start
 ```
 
 First you will need to get all the users who attempted a pool. Then you can use this list to retrieve their public profiles.
+
+The request results are saved into the results/ folder.
 
 ### Pool Users List
 
