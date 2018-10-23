@@ -18,7 +18,7 @@ It allows you to retrieve the public profiles of the user who attemted a specifi
 npm install
 ```
 
-2. create a file with your API id and secret named "credentials.json" into the resources/
+2. create a file with your API id and secret named "credentials.json" into the resources/ folder
 
 ```
 {
@@ -41,8 +41,8 @@ First you will need to get all the users who attempted a pool. Then you can use 
 
 Choose the "Pool" mode, it will ask you some informations.
 
-Pool Year: the year of the pool
-Pool Month: the month of the pool
+Pool Year: the year of the pool  
+Pool Month: the month of the pool  
 Page Size: the number of users per page (from 1 to 100)
 
 ```
@@ -59,7 +59,7 @@ Once you have used the first method you can process the result files to retrieve
 Choose the "Users" mode, it will ask you the link to one of the list files.
 
 ```
-TestAPI42: (P) = pool users request; (U) = users profiles request:  u
+TestAPI42: (P) = pool users request; (U) = users profiles request:  U
 TestAPI42 User: Enter the users list filepath:  ./results/2017_july_pool/users_1.json
 progress [========================================] 100% | ETA: 0s | 50/50
 ```
