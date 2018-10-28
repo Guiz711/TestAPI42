@@ -51,7 +51,19 @@ function getStudentsIdFromFile(filePath) {
 	})
 }
 
+function readFilePromise(path) {
+	return ret = new Promise((resolve, reject) => {
+		fs.readFile(path, (err, data) => {
+			if (err)
+				reject(err);
+			else
+				resolve(data);
+		})
+	})
+}
+
 module.exports.writeFilePromise = writeFilePromise;
 module.exports.getCampusIdByName = getCampusIdByName;
 module.exports.getStudentsIdFromFile = getStudentsIdFromFile;
 module.exports.sleep = sleep;
+module.exports.readFilePromise = readFilePromise;
