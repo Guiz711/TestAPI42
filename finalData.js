@@ -39,7 +39,8 @@ function handleFile(filePath) {
 					lastName = users[i].last_name,
 					gender = users[i].gender,
 					genderProbability = user[i].probability,
-					poolDate = new Date(`${users[i].pool_month} ${users[i].pool_year}`)
+					poolDate = new Date(`${users[i].pool_month} ${users[i].pool_year}`),
+					admitted = user[i].achievements
 				}
 			}
 			return getNamesLoop(users, names, 0);
