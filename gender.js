@@ -48,7 +48,6 @@ function getNamesLoop(users, names, pos) {
 	for(let i = 0; (i + pos) < names.length && i < 10; ++i) {
 		reqString += `&name[${i}]=${names[pos + i]}`;
 	}
-	console.log(reqString);
 	return new Promise((resolve, reject) => {
 		getGender(reqString)
 			.then(data => {

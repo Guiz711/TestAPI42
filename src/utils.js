@@ -53,11 +53,12 @@ function getStudentsIdFromFile(filePath) {
 
 function readFilePromise(path) {
 	return ret = new Promise((resolve, reject) => {
-		fs.readFile(path, (err, data) => {
+		fs.readFile(path, 'utf8',(err, data) => {
 			if (err)
 				reject(err);
-			else
+			else{
 				resolve(data);
+			}
 		})
 	})
 }
