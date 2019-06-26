@@ -27,6 +27,8 @@ npm install
 }
 ```
 
+You need to be a 42 school student to get API credentials
+
 ## Usage
 
 Use the following command to run the script:
